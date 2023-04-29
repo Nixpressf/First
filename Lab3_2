@@ -1,0 +1,70 @@
+
+namespace Lab3_1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int temp = 0;
+            int[] A = new int[30];
+            int[] B = new int[30];
+            Random rand = new Random();
+            for (int i = 0; i < A.Length; i++)
+            {
+                A[i] = rand.Next(0, 30);
+                Console.Write(A[i] + " ");
+            }
+            //Bubble sort
+            B = A;
+            for (int write = 0; write < A.Length; write++)
+            {
+                for (int sort = 0; sort < A.Length - 1; sort++)
+                {
+                    if (A[sort] > A[sort + 1])
+                    {
+                        temp = A[sort + 1];
+                        A[sort + 1] = A[sort];
+                        A[sort] = temp;
+                    }
+                }
+            }
+            Console.Write("\n");
+            Console.WriteLine("Bubble Sort");
+            for (int i = 0; i < A.Length; i++)
+                Console.Write(A[i] + " ");
+            Console.Write("\n");
+            Console.WriteLine("Shell Sort");
+            B = ShellSort(B);
+            for (int i = 0; i < B.Length; i++)
+                Console.Write(B[i] + " ");
+        }
+        static void Swap(ref int a, ref int b)
+        {
+            var t = a;
+            a = b;
+            b = t;
+        }
+
+        static int[] ShellSort(int[] array)
+        {
+            //Shell Sort
+            var d = array.Length / 2;
+            while (d >= 1)
+            {
+                for (var i = d; i < array.Length; i++)
+                {
+                    var j = i;
+                    while ((j >= d) && (array[j - d] > array[j]))
+                    {
+                        Swap(ref array[j], ref array[j - d]);
+                        j = j - d;
+                    }
+                }
+
+                d = d / 2;
+            }
+
+            return array;
+        }
+    }
+}
